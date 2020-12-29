@@ -1,24 +1,9 @@
-# flip
+# FLIP
 
-## Project setup
-```
-yarn install
-```
+> FLIP 动画演示
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## 本地开发
 
-### Compiles and minifies for production
+```bash
+yarn install && yarn serve
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

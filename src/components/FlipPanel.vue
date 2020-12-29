@@ -1,34 +1,41 @@
 <template>
   <button @click="handleChange">切换</button>
-  <div class="list">
+  <div class="panel">
     <div
-        class="list__item"
-        v-for="({ name }, i) in list"
+        class="panel__item"
+        v-for="({ name, key, width, color }, i) in list"
         :ref="el => refs[i] = el"
-        :key="name"
-        :data-key="name"
+        :key="key"
+        :data-key="key"
+        :style="{ width: `${width}px`, background: `${color}`}"
     >
       <p>{{ name }}</p>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { reactive, toRefs, nextTick } from 'vue'
 
 export default {
-  name: 'FLipList',
+  name: 'FLipPanel',
   props: {
     msg: String
   },
   setup() {
     const state = reactive({
-      list: [
-        { name: 'A' },
-        { name: 'B' },
-        { name: 'C' },
-      ]
+      list: []
     })
+
+    state.list = new Array(20).fill(null).map((_, index) => (
+            {
+              name: index + 1,
+              key: index,
+              width: 60 + index * 10,
+              color: `hsla(0, 0%, 0%, ${(index + 1) * 0.045 + 0.1})`
+            }
+        )
+    )
 
     const refs = reactive([])
 
@@ -70,8 +77,8 @@ export default {
           const diffX = lastX - firstX
           const diffY = lastY - firstY
           ref.animate([
-              { transform: `translate(0, 0)` },
-              { transform: `translate(${-diffX}px, ${-diffY}px)` }
+            { transform: `translate(0, 0)` },
+            { transform: `translate(${-diffX}px, ${-diffY}px)` }
           ], {
             duration: 0,
             iterations: 1,
@@ -108,9 +115,11 @@ button {
   width: 90px;
 }
 
-.list {
+.panel{
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
   align-content: flex-start;
   height: calc(100vh - 152px);
   width: 100%;
@@ -120,7 +129,6 @@ button {
 
   &__item {
     flex: none;
-    width: 100%;
     height: 120px;
     margin-bottom: 24px;
     background: #42b983;
@@ -135,7 +143,7 @@ button {
     }
 
     & + & {
-      margin-top: 24px;
+      margin-left: 24px;
     }
   }
 }
