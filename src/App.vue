@@ -1,32 +1,29 @@
 <template>
   <header>
     <span>FLIP</span>
-    <button @click="handleChangePage('FLIP_LIST')">演示</button>
-    <button @click="handleChangePage('FLIP_PANEL')">事例</button>
-    <button @click="handleChangePage('FLIP_STEP')">步骤</button>
+    <router-link to="/">
+      <button>演示</button>
+    </router-link>
+    <router-link to="/panel">
+      <button>示例</button>
+    </router-link>
+    <router-link to="/step">
+      <button>步骤</button>
+    </router-link>
   </header>
   <main>
-    <flip-list v-if="page === 'FLIP_LIST'" />
-    <flip-panel v-if="page === 'FLIP_PANEL'" />
-    <flip-step v-if="page === 'FLIP_STEP'" />
+    <router-view></router-view>
   </main>
 </template>
 
 <script>
 import { ref } from 'vue'
-import FlipList from './components/FlipList.vue'
-import FlipPanel from './components/FlipPanel.vue'
-import FlipStep from './components/FlipStep.vue'
+
 
 export default {
   name: 'App',
-  components: {
-    FlipList,
-    FlipPanel,
-    FlipStep
-  },
   setup() {
-    const page = ref('FLIP_STEP');
+    const page = ref('FLIP_LIST');
 
     const handleChangePage = (type) => {
       page.value = type
@@ -94,7 +91,7 @@ header {
     font-size: 16px;
   }
 
-  button + button {
+  a + a {
     margin-left: 24px;
   }
 }
