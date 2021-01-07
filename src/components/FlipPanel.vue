@@ -27,7 +27,7 @@ export default {
       list: []
     })
 
-    state.list = new Array(20).fill(null).map((_, index) => (
+    state.list = new Array(16).fill(null).map((_, index) => (
             {
               name: index + 1,
               key: index,
